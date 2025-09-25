@@ -11,9 +11,14 @@
     <h3>{{ alert.title }} ({{ alert.severity }})</h3>
     <p>{{ alert.message }}</p>
 
-    <form method="post" action="{% url 'snooze_alert' alert.id %}">
+    <form method="post" action="{% url 'snooze_alert' alert.id %}" style="display:inline;">
         {% csrf_token %}
         <button type="submit">Snooze</button>
+    </form>
+
+    <form method="post" action="{% url 'mark_alert_as_read' alert.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Mark as Read</button>
     </form>
   </div>
 {% empty %}

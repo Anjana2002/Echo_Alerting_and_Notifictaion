@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from .forms import SignupForm
 from django.contrib.auth.decorators import login_required
@@ -40,12 +40,11 @@ def dashboard(request):
     print("Snoozed alert IDs:", list(snoozed_alerts))   # 👈 check which IDs are snoozed
     print("Active before exclude:", list(active_alerts.values_list("id", flat=True)))
 
-    active_alerts = active_alerts.exclude(id__in=snoozed_alerts)
+    alerts = Alert.objects.filter(
+        useralertpreference__user=request.user,
+        useralertpreference__is_read=False
+    )
+    return render(request, 'dashboard.html', {'alerts': alerts})
 
-    print("Active after exclude:", list(active_alerts.values_list("id", flat=True)))
-
-    return render(request, 'dashboard.html', {'alerts': active_alerts})
-
-
-    
+ 
         
