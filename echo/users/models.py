@@ -28,6 +28,11 @@ class Alert(models.Model):
     expiry_time = models.DateTimeField()
     remainder_freq = models.IntegerField(default=120)
     
+    teams = models.ManyToManyField('Team', blank=True)
+    users = models.ManyToManyField('User', blank=True)
+    entire_organization = models.BooleanField(default=False)
+
+    is_active = models.BooleanField(default=True) 
     def __str__(self):
         return f"{self.title} ({self.severity})"
     
