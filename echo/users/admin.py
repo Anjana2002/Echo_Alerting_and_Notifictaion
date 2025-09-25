@@ -1,15 +1,9 @@
 from django.contrib import admin
-from .models import Alert, User, Team, NotificationDelivery, UserAlertPreference
+from .models import  User, Team
 
 
-@admin.register(Alert)
-class AlertAdmin(admin.ModelAdmin):
-    list_display = ('title', 'severity', 'start_time', 'expiry_time', 'is_active')
-    list_filter = ('severity', 'is_active', 'start_time', 'expiry_time', 'entire_organization')
-    filter_horizontal = ('teams', 'users')
 
 
 admin.site.register(Team)
 admin.site.register(User)
-admin.site.register(UserAlertPreference)
-admin.site.register(NotificationDelivery)
+
