@@ -1,4 +1,4 @@
-from math import remainder
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
@@ -8,12 +8,11 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
-class User(models.Model):
-    name = models.CharField(max_length=100)
+class User(AbstractUser):
     team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
-        return self.name
+        return self.username
     
 class Alert(models.Model):
     SEVERITY_CHOICES = [
@@ -51,7 +50,7 @@ class NotificationDelivery(models.Model):
     )
 
     def __str__(self):
-        return f"{self.alert.title} → {self.user.name} ({self.status})"
+        return f"{self.alert.title} → {self.user.username} ({self.status})"
     
 class UserAlertPreference(models.Model):
     alert = models.ForeignKey(Alert, on_delete=models.CASCADE)
@@ -60,6 +59,6 @@ class UserAlertPreference(models.Model):
     snoozed_until = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.name} - {self.alert.title}"
+        return f"{self.user.username} - {self.alert.title}"
     
     
