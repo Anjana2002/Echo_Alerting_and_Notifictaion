@@ -39,6 +39,23 @@
             margin-left: 220px;
             padding: 20px;
             flex: 1;
+
+        }
+        .sidebar-link {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            font: inherit;
+            cursor: pointer;
+        }
+        
+        .sidebar-link:hover {
+            background: #34495e;
         }
     </style>
 </head>
@@ -50,7 +67,10 @@
         <a href="#">⚙️ Settings</a>
         <a href="{% url 'all_notifications' %}">🔔 All Notifications</a>
 
-        <a href="{% url 'logout' %}">🚪 Logout</a>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">🚪 Logout</button>
+        </form>
     </div>
 
     <!-- Main content -->
