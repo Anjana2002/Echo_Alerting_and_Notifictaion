@@ -11,10 +11,10 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <h2>ECHO</h2>
-      <a href="{% url 'dashboard' %}">🏠 Home</a>
-      <a href="{% url 'settings' %}">⚙️ Settings</a>
+      <a href="{% url 'dashboard' %}">Home</a>
+      <a href="{% url 'settings' %}"> Settings</a>
 
-      <a href="{% url 'all_notifications' %}">🔔 All Notifications</a>
+      <a href="{% url 'all_notifications' %}"> All Notifications</a>
 
       <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}

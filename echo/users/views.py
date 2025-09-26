@@ -17,11 +17,14 @@ def signup(request):
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
 
+from django.db.models import Q
+
 @login_required
 def dashboard(request):
     user = request.user
     now = timezone.now()
 
+    # Active alerts for this user
     active_alerts = Alert.objects.filter(
         is_active=True,
         start_time__lte=now,
@@ -32,19 +35,23 @@ def dashboard(request):
         Q(teams=user.team)
     ).distinct()
 
+    # Alerts snoozed by user
     snoozed_alerts = UserAlertPreference.objects.filter(
         user=user,
         snoozed_until__gt=now
     ).values_list('alert_id', flat=True)
 
-    # print("Snoozed alert IDs:", list(snoozed_alerts))  
-    # print("Active before exclude:", list(active_alerts.values_list("id", flat=True)))
+    # Alerts read by user
+    read_alerts = UserAlertPreference.objects.filter(
+        user=user,
+        is_read=True
+    ).values_list('alert_id', flat=True)
 
-    alerts = Alert.objects.filter(
-        useralertpreference__user=request.user,
-        useralertpreference__is_read=False
-    )
-    return render(request, 'dashboard.html', {'alerts': alerts})
+    # Final alerts: active alerts minus snoozed and read
+    alerts_to_show = active_alerts.exclude(id__in=list(snoozed_alerts) + list(read_alerts))
+
+    return render(request, 'dashboard.html', {'alerts': alerts_to_show})
+
 
 
  
