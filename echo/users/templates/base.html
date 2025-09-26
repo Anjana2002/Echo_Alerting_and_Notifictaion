@@ -1,82 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Echo - {% block title %}{% endblock %}</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-        }
-        /* Sidebar */
-        .sidebar {
-            width: 220px;
-            background: #2c3e50;
-            color: white;
-            height: 100vh;
-            padding-top: 20px;
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .sidebar a {
-            display: block;
-            color: white;
-            padding: 12px 20px;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background: #34495e;
-        }
-        /* Main content */
-        .main {
-            margin-left: 220px;
-            padding: 20px;
-            flex: 1;
-
-        }
-        .sidebar-link {
-            display: block;
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            text-decoration: none;
-            font: inherit;
-            cursor: pointer;
-        }
-        
-        .sidebar-link:hover {
-            background: #34495e;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+  </head>
+  <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>ECHO</h2>
-        <a href="{% url 'dashboard' %}">🏠 Home</a>
-        <a href="#">⚙️ Settings</a>
-        <a href="{% url 'all_notifications' %}">🔔 All Notifications</a>
+      <h2>ECHO</h2>
+      <a href="{% url 'dashboard' %}">🏠 Home</a>
+      <a href="#">⚙️ Settings</a>
+      <a href="{% url 'all_notifications' %}">🔔 All Notifications</a>
 
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">🚪 Logout</button>
-        </form>
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
     </div>
 
     <!-- Main content -->
-    <div class="main">
-        {% block content %}
-        {% endblock %}
-    </div>
-</body>
+    <div class="main">{% block content %} {% endblock %}</div>
+  </body>
 </html>

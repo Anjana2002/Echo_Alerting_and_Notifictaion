@@ -1,27 +1,46 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+Dashboard
+{% endblock %}
 
 {% block content %}
-<h1>Welcome, {{ request.user.username }}!</h1>
-
-<h2>Your Alerts</h2>
-{% for alert in alerts %}
-  <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-    <h3>{{ alert.title }} ({{ alert.severity }})</h3>
-    <p>{{ alert.message }}</p>
-
-    <form method="post" action="{% url 'snooze_alert' alert.id %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">Snooze</button>
-    </form>
-
-    <form method="post" action="{% url 'mark_alert_as_read' alert.id %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">Mark as Read</button>
-    </form>
+<div class="dashboard-content">
+  <div class="dashboard-welcome">
+    <h1>Welcome, {{ request.user.username }}!</h1>
   </div>
-{% empty %}
-  <p>No active alerts</p>
-{% endfor %}
+
+  <div class="dashboard-section">
+    <h2>Your Alerts</h2>
+    {% for alert in alerts %}
+    <div class="alert-card">
+      <h3>
+        {{ alert.title }}
+        <span class="alert-severity {{ alert.severity|lower }}">
+          {{ alert.severity }}
+        </span>
+      </h3>
+      <p>{{ alert.message }}</p>
+
+      <div class="alert-actions">
+        <form method="post" action="{% url 'snooze_alert' alert.id %}">
+          {% csrf_token %}
+          <button type="submit" class="alert-btn snooze">⏰ Snooze</button>
+        </form>
+
+        <form method="post" action="{% url 'mark_alert_as_read' alert.id %}">
+          {% csrf_token %}
+          <button type="submit" class="alert-btn mark-read">
+            ✅ Mark as Read
+          </button>
+        </form>
+      </div>
+    </div>
+    {% empty %}
+    <div class="no-alerts">
+      <p> No active alerts</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

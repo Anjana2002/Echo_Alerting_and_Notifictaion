@@ -1,40 +1,61 @@
 {% extends "base.html" %}
-{% block title %}All Notifications{% endblock %}
+
+{% block title %}
+All Notifications
+{% endblock %}
 
 {% block content %}
-<h1>All Notifications</h1>
+<div class="notifications-content">
+  <div class="notifications-header">
+    <h1>All Notifications</h1>
+  </div>
 
-<table border="1" cellpadding="10" cellspacing="0">
-    <thead>
+  <div class="notifications-table-container">
+    {% if notifications %}
+    <table class="notifications-table">
+      <thead>
         <tr>
-            <th>Title</th>
-            <th>Message</th>
-            <th>Severity</th>
-            <th>Date</th>
-            <th>Action</th>
+          <th>Title</th>
+          <th>Message</th>
+          <th>Severity</th>
+          <th>Date</th>
+          <th>Action</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         {% for notif in notifications %}
-        <tr {% if notif.is_read %}style="background:#f0f0f0;"{% endif %}>
-            <td>{{ notif.alert.title }}</td>
-            <td>{{ notif.alert.message }}</td>
-            <td>{{ notif.alert.severity }}</td>
-            <td>{{ notif.alert.start_time|date:"Y-m-d H:i" }}</td>
-            <td>
-                {% if not notif.is_read %}
-                <form method="post" action="{% url 'mark_alert_as_read' notif.alert.id %}">
-                    {% csrf_token %}
-                    <button type="submit">Mark as Read</button>
-                </form>
-                {% else %}
-                Read
-                {% endif %}
-            </td>
+        <tr class="{% if notif.is_read %}read{% endif %}">
+          <td><strong>{{ notif.alert.title }}</strong></td>
+          <td>{{ notif.alert.message }}</td>
+          <td>
+            <span class="notification-severity {{ notif.alert.severity|lower }}">
+              {{ notif.alert.severity }}
+            </span>
+          </td>
+          <td>{{ notif.alert.start_time|date:"M d, Y H:i" }}</td>
+          <td>
+            <div class="notification-actions">
+              {% if not notif.is_read %}
+              <form method="post" action="{% url 'mark_alert_as_read' notif.alert.id %}">
+                {% csrf_token %}
+                <button type="submit" class="notification-btn mark-read">
+                  ✅ Mark as Read
+                </button>
+              </form>
+              {% else %}
+              <span class="notification-status">✓ Read</span>
+              {% endif %}
+            </div>
+          </td>
         </tr>
-        {% empty %}
-        <tr><td colspan="5">No notifications found.</td></tr>
         {% endfor %}
-    </tbody>
-</table>
+      </tbody>
+    </table>
+    {% else %}
+    <div class="no-notifications">
+      <p>📭 No notifications found</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
