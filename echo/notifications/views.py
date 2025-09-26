@@ -23,10 +23,16 @@ def snooze_alert(request, alert_id):
 @login_required
 def mark_alert_as_read(request, alert_id):
     if request.method == 'POST':
-        user_alert = get_object_or_404(UserAlertPreference, user=request.user, alert_id=alert_id)
-        user_alert.is_read = True
-        user_alert.save()
+        user_alert, created = UserAlertPreference.objects.get_or_create(
+            user=request.user,
+            alert_id=alert_id,
+            defaults={'is_read': True}  # if created, mark as read immediately
+        )
+        if not created:
+            user_alert.is_read = True
+            user_alert.save()
     return redirect('dashboard')
+
 
 
 @login_required

@@ -83,3 +83,13 @@ python manage.py runserver
 - **Django 5.x**
 - **SQLite** (default) or any Django-supported database
 - **HTML, CSS, Django Templates**
+
+## Future Scope
+
+- Email & SMS alert delivery  
+- Custom reminder frequency  
+- Scheduled alerts at specific times  
+- Escalation if alerts not acknowledged  
+- Role-based access for Admin features  
+- Push notifications
+
