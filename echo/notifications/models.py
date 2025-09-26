@@ -47,3 +47,10 @@ class UserAlertPreference(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.alert.title}"
+    
+class UserSettings(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    snooze_minutes = models.PositiveIntegerField(default=10)  # default 10 minutes
+
+    def __str__(self):
+        return f"{self.user.username} Settings"

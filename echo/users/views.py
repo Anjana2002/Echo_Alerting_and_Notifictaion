@@ -37,14 +37,15 @@ def dashboard(request):
         snoozed_until__gt=now
     ).values_list('alert_id', flat=True)
 
-    print("Snoozed alert IDs:", list(snoozed_alerts))   # 👈 check which IDs are snoozed
-    print("Active before exclude:", list(active_alerts.values_list("id", flat=True)))
+    # print("Snoozed alert IDs:", list(snoozed_alerts))  
+    # print("Active before exclude:", list(active_alerts.values_list("id", flat=True)))
 
     alerts = Alert.objects.filter(
         useralertpreference__user=request.user,
         useralertpreference__is_read=False
     )
     return render(request, 'dashboard.html', {'alerts': alerts})
+
 
  
         
