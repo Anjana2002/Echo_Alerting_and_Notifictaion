@@ -77,6 +77,9 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+## Demo
+https://drive.google.com/file/d/1Czs8plgPLmwN0X2_wrwvpWU6rO5UYTOG/view?usp=sharing
+
 ## Technologies Used
 
 - **Python 3.10**
