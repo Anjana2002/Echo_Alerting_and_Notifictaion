@@ -1,16 +1,26 @@
 {% extends "base.html" %}
-
 {% block title %}Settings{% endblock %}
-
 {% block content %}
-<h1>Alert Settings</h1>
+<div class="settings-content">
+  <div class="settings-header">
+    <h1>Alert Settings</h1>
+  </div>
 
-<form method="post">
-    {% csrf_token %}
-    <div>
+  <div class="settings-form-container">
+    <form method="post" class="settings-form">
+      {% csrf_token %}
+      <div class="settings-form-group">
         <label for="snooze_minutes">Snooze Duration (minutes):</label>
-        <input type="number" id="snooze_minutes" name="snooze_minutes" min="1" value="{{ settings.snooze_minutes }}">
-    </div>
-    <button type="submit">Save</button>
-</form>
+        <input
+          type="number"
+          id="snooze_minutes"
+          name="snooze_minutes"
+          min="1"
+          value="{{ settings.snooze_minutes }}"
+        />
+      </div>
+      <button type="submit" class="settings-save-btn">💾 Save Settings</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

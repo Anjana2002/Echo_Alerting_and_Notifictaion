@@ -617,6 +617,101 @@ body {
     font-weight: 500;
 }
 
+/* Settings page styles */
+.settings-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.settings-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(44, 62, 80, 0.2);
+}
+
+.settings-header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.settings-form-container {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+.settings-form {
+    max-width: 500px;
+}
+
+.settings-form-group {
+    margin-bottom: 25px;
+}
+
+.settings-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.settings-form-group input[type="number"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f8f9fa;
+    font-family: inherit;
+}
+
+.settings-form-group input[type="number"]:focus {
+    outline: none;
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+    background-color: white;
+}
+
+.settings-save-btn {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.settings-save-btn:hover {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
+}
+
+.settings-save-btn:active {
+    transform: translateY(0);
+}
+
 /* Responsive design for notifications table */
 @media (max-width: 768px) {
     .notifications-table-container {
@@ -631,6 +726,14 @@ body {
     
     .notifications-header h1 {
         font-size: 2em;
+    }
+    
+    .settings-header h1 {
+        font-size: 2em;
+    }
+    
+    .settings-form-container {
+        padding: 20px;
     }
 }
 
